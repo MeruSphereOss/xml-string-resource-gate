@@ -1,0 +1,45 @@
+plugins {
+    id 'groovy'
+    id 'maven-publish' // Use the newer maven-publish plugin
+}
+
+group = 'com.sayukth.hsf'
+version = '1.0.0'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.apache.groovy:groovy:4.0.14'
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+
+    implementation gradleApi()
+    implementation localGroovy()
+}
+
+test {
+    useJUnitPlatform()
+}
+
+// Configure the publication process using maven-publish
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java // This includes the main compiled output
+
+            // Optionally define additional metadata for the POM file
+            groupId = 'com.sayukth.hsf'
+            artifactId = 'hsfinder'
+            version = '1.0.0'
+        }
+    }
+
+    repositories {
+        maven {
+            // Path to your local repository (update the path as necessary)
+            url = uri('/Users/nagasai.lanka/Documents')
+        }
+    }
+}
