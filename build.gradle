@@ -1,13 +1,24 @@
 plugins {
     id 'groovy'
     id 'maven-publish' // Use the newer maven-publish plugin
+    id 'java-gradle-plugin'
 }
 
 group = 'com.sayukth.hsf'
 version = '1.0.0'
 
+gradlePlugin {
+    plugins {
+        myPlugin {
+            id = 'com.sayukth.github-merusphere.hsfinder'
+            implementationClass = 'com.sayukth.hsf.HardcodedStringCheckerPlugin'
+        }
+    }
+}
+
 repositories {
     mavenCentral()
+    google()
 }
 
 dependencies {
@@ -23,23 +34,31 @@ test {
     useJUnitPlatform()
 }
 
-// Configure the publication process using maven-publish
+//// Configure the publication process using maven-publish
+//publishing {
+//    publications {
+//        mavenJava(MavenPublication) {
+//            from components.java // This includes the main compiled output
+//
+//            // Optionally define additional metadata for the POM file
+//            groupId = 'com.sayukth.hsf'
+//            artifactId = 'hsfinder'
+//            version = '1.0.0'
+//        }
+//    }
+//
+//    repositories {
+//        maven {
+//            // Path to your local repository (update the path as necessary)
+//            url = uri('/Users/nagasai.lanka/Documents')
+//        }
+//    }
+//}
+
 publishing {
     publications {
         mavenJava(MavenPublication) {
-            from components.java // This includes the main compiled output
-
-            // Optionally define additional metadata for the POM file
-            groupId = 'com.sayukth.hsf'
-            artifactId = 'hsfinder'
-            version = '1.0.0'
-        }
-    }
-
-    repositories {
-        maven {
-            // Path to your local repository (update the path as necessary)
-            url = uri('/Users/nagasai.lanka/Documents')
+            from components.java
         }
     }
 }
